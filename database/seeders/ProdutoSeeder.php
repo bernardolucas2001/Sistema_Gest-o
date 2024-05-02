@@ -12,7 +12,7 @@ class ProdutoSeeder extends Seeder
     public function run(): void
     {
         Produto::create([
-            'nome'=> 'Xbox',
+            'nome'=> 'Playstation',
             'Valor' => '4000.00'
         ]);
     }

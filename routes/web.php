@@ -23,5 +23,8 @@ Route::prefix('produtos')->group(function(){
     Route::get('/cadastrarProdutos', [ProdutosController::class, 'cadastrarProdutos'])->name('cadastrar.produto');
     Route::post('/cadastrarProdutos', [ProdutosController::class, 'cadastrarProdutos'])->name('cadastrar.produto');
     Route::delete('/delete', [ProdutosController::class, 'delete'])->name('produto.delete');
+
+    Route::get('/atualizarProdutos/{id}', [ProdutosController::class, 'atualizarProdutos'])->name('atualizar.produto');
+    Route::put('/atualizarProdutos/{id}', [ProdutosController::class, 'atualizarProdutos'])->name('atualizar.produto');
     
 });

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormRequestProduto;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use App\Models\Componentes;
+
 
 class ProdutosController extends Controller
 {
@@ -28,16 +31,35 @@ class ProdutosController extends Controller
 
     }
 
-    public function cadastrarProdutos(Request $request) {
+    public function cadastrarProdutos(FormRequestProduto $request) {
         if($request->method() == "POST") {
 
             $data = $request->all();
+            $componentes = new Componentes();
+            $data['valor'] = $componentes->formatacaoMascaraDinheiroDecimal($data['valor']);
             Produto::create($data);
-
             return redirect()->route('produto.index');
+
+            
 
         }
 
         return view('pages.produtos.create');
+    }
+
+    public function atualizarProdutos(FormRequestProduto $request, $id){
+        if($request->method() == "PUT") {
+
+            $data = $request->all();
+            $componentes = new Componentes();
+            $data['valor'] = $componentes->formatacaoMascaraDinheiroDecimal($data['valor']);
+            $buscaRegistro = Produto::find($id);
+            $buscaRegistro->update($data);
+            return redirect()->route('produto.index');
+
+        }
+        $findProduto = Produto::where('id', '=', $id)->first();
+        return view('pages.produtos.atualiza', compact('findProduto'));
+
     }
 }
